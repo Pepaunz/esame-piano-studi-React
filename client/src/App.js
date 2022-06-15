@@ -3,7 +3,8 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Container,Row,Col } from 'react-bootstrap';
 import MyNavbar from './navbar';
-import {Main} from './Main';
+import {CoursesTable} from './CoursesTable';
+import { StudyplanTable } from './StudyplanTable';
 import { useEffect, useState } from 'react';
 import API from './API';
 
@@ -30,7 +31,7 @@ function App() {
       <MyNavbar />
       <Container  >
         <Row >
-          <Main onlyCourses={true} courses={courses} title='Lista dei corsi' editPlan={editPlan} />
+          <CoursesTable courses={courses} editPlan={editPlan} />
         </Row>
       </Container>
       {!editPlan ?
@@ -42,7 +43,7 @@ function App() {
           </Row>
         </Container>
         : <>
-          <Main courses={[]} title="Piano di studio" commitment={commitment} />
+          <StudyplanTable courses={[]} commitment={commitment} />
         </>
       }
     </>
