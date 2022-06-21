@@ -1,3 +1,15 @@
 .margintop {
    margin-top: 8rem; 
 }
+.btn-margin{
+   margin-left: 10px;
+}
+
+.table-inactive {
+   background-color: #ececec;
+   color: #b9b9b9;
+}
+
+.btn-right{
+   margin-right: 10px;
+}
