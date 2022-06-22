@@ -10,11 +10,6 @@ import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from 'r
 import API from './API';
 import { LoginForm } from './login';
 
-  const mockCourses = [
- 
-   {code:'02LSEOV' , name:'Computer architectures ', credits:12 , students:1 , maxstuds:'' ,incomp:"02GOLOV"},
-   {code:'01SQJOV'  , name:'Data Science and Database Technology ' , credits:8 , students:1 , maxstuds:'' ,incomp:"3348932" }
- ]; 
 
  function App(){
   return (
@@ -117,7 +112,6 @@ function App2() {
 
   function checkError(course){
     let error = '';
-    console.log(checkMaxstud(course));
     if(checkMaxstud(course))
     error="max"
     if(planCourses.some(c=>c.code===course.code))
@@ -191,6 +185,7 @@ function savePlan(){
     setUser({});
     setPlanCourses([]);
     setEditPlan(false);
+    setCommitment('');
   }
 
  

@@ -27,7 +27,7 @@ passport.use(new LocalStrategy(
   }
 ));
 
- // serialize and de-serialize the user (user object <-> session)
+ 
  passport.serializeUser((user, done) => {
   done(null, user.id);
 });
@@ -35,7 +35,7 @@ passport.use(new LocalStrategy(
 passport.deserializeUser((id, done) => {
   userDao.getUserById(id)
     .then(user => {
-      done(null, user); // this will be available in req.user
+      done(null, user); 
     }).catch(err => {
       done(err, null);
     });
@@ -77,7 +77,7 @@ app.get('/api/courses', async (req,res)=>{
     const courses = await dao.listCourses();
     const incomp = await dao.getIncompatibility();
     const students = await dao.getStudents();
-    console.log(students);
+  
     
     
     courses.forEach( (elem) => {
@@ -106,7 +106,6 @@ app.get('/api/studyplan', isLoggedIn, async (req, res) => {
   try {
     const studyplan = await dao.listStudyplan(req.user.id);
     res.json(studyplan);
-    //setTimeout( ()=> res.json(exams), 1000);
   } catch(err) {
     console.log(err);
     res.status(500).json({error: `Database error while retrieving studyplan`}).end();
@@ -161,7 +160,7 @@ app.get('/api/studyplan', isLoggedIn, async (req, res) => {
     });
 
     //scorro l'array per fare i controlli
-    console.log(result);
+
     result.map(course=>{
       if(checkIncomp(course,result))
         throw "alcuni corsi nel piano di studi sono incompatibili tra loro";
@@ -183,7 +182,7 @@ app.get('/api/studyplan', isLoggedIn, async (req, res) => {
   
   }
   catch(err){
-    res.status(500).json({error:err}).end();
+    res.status(503).json({error:"Validation error:" + err}).end();
   }
 })
 
@@ -245,16 +244,12 @@ app.post('/api/sessions', function(req, res, next) {
     if (err)
       return next(err);
       if (!user) {
-        // display wrong login messages
         return res.status(401).json(info);
       }
       // success, perform the login
       req.login(user, (err) => {
         if (err)
           return next(err);
-        
-        // req.user contains the authenticated user, we send all the user info back
-        // this is coming from userDao.getUser()
         return res.json(req.user);
       });
   })(req, res, next);

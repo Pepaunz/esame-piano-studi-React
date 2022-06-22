@@ -93,7 +93,7 @@ async function login(credentials) {
     if (response.ok) {
       return userInfo;
     } else {
-      throw userInfo;  // an object with the error coming from the server
+      throw userInfo;  
     }
   }
 

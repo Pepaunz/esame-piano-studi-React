@@ -1,7 +1,0 @@
-POST http://localhost:3001/api/studyplan
-content-type: application/json
-
-{ "planCourses":["01TYDOV","01NYHOV"],
-    "commitment": "part",
-    "credits": 40
-}

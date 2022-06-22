@@ -1,44 +1,92 @@
-# Exam #12345: "Exam Title"
-## Student: s123456 LASTNAME FIRSTNAME 
+#  Exam #1: Piano di studi
+## Student: s302599 BENNARDO GIUSEPPE
 
 ## React Client Application Routes
 
-- Route `/`: page content and purpose
-- Route `/something/:param`: page content and purpose, param specification
-- ...
+- Route `/`: home page logged-in. Se l'utente ha già creato un piano di studi è mostrato altrimenti è richiesta la creazione.
+- Route `/login` pagina di login.
 
 ## API Server
 
-- POST `/api/login`
-  - request parameters and request body content
-  - response body content
-- GET `/api/something`
-  - request parameters
-  - response body content
-- POST `/api/something`
-  - request parameters and request body content
-  - response body content
-- ...
+- GET `/api/courses`
+  - Request parameters: _none_ 
+  - Response body: array di oggetti, ognuno di essi descrive un corso(codice,nome,ec...).
+
+    ```
+    [{
+      "code": "01UDFOV",
+      "name": "Applicazioni Web I",
+      "credits": 6,
+      "maxstud": null,
+      "students":1,
+      "prerequisite":null,
+      "incomp": "01TXYOV"
+
+    },{
+      ...
+      ...
+    },...]
+    ```
+- GET `/api/studyplan`
+  - Request parameters: id della sessione user
+  - Response body content: array di oggeti, ognuno di essi descrive un corso appartente al piano di studi creato da un certo utente.
+    ```
+    [{
+      "code": "01UDFOV",
+      "name": "Applicazioni Web I",
+      "credits": 6,
+      "commitment": "full",
+      "prerequisite":null
+    },{
+      ...
+      ...
+    }]
+    ```
+- POST `/api/studyplan`
+  - request parameters: _none_
+  - request body content: un oggetto contente un array con i codici dei corsi da inserire, il tipo di piano di studi(full-time o part-time) e il totale di crediti.
+    ```
+    {
+      "planCourses":["01UDFOV","02KPNOV",...],
+      "commitment":"part",
+      "credits":35
+    }
+    ```
+  - Response body content: _none_
+- DELETE `/api/studyplan`
+  - Request body: _none_
+  - Response body content: _none_
 
 ## Database Tables
 
-- Table `users` - contains xx yy zz
-- Table `something` - contains ww qq ss
-- ...
+- Table `user` - contiente: id | username | password | salt | commitment
+- Table `course` - contiene: code | name | credits | maxstud | prerequisite | students
+- Table `incompatibility` - contiene: coursecode | incompatible
+- Table `studyplan` - contiene: coursecode | userid 
 
 ## Main React Components
 
-- `ListOfSomething` (in `List.js`): component purpose and main functionality
-- `GreatButton` (in `GreatButton.js`): component purpose and main functionality
-- ...
+- `CourseTable` (in `CourseTable.js`): contiene la tabella dei corsi.Ogni riga può essere espansa per mostrare informazioni aggiuntive. Quando l'utente sta editando il piano di studi, compare il bottone di aggiunta. Se è impossibile aggiungere un corso quest'ultimo si disabilita e mostra un messaggio di errore.
 
-(only _main_ components, minor ones may be skipped)
+- `StudyplanTable` (in `Studyplan.js`): contiene tabella dei corsi del piano di studi. 
+
+- `Main` (in`Main.js`): componente che renderizza _StudyplanTable_ se esiste il piano di studi, oppure se non esiste, renderizza il form di creazione.
+
+- `LoginForm` (in `login.js`): contiene form di login
+- `MyNavbar` (in `navbar.js`): sempre presente, contiene il nome dell'applicativo, se l'utente è loggato mostra messaggio di benvenuto e  bottone di logout.
+
 
 ## Screenshot
 
-![Screenshot](./img/screenshot.jpg)
+![Screenshot](./screenshotEditPage.jpeg)
+
 
 ## Users Credentials
 
-- username, password (plus any other requested info)
-- username, password (plus any other requested info)
+| username | password | name |
+|-------|----------|------|
+| michael.jordan@polito.it | password | Michael |
+| scottie.pippen@polito.it | password | Scottie |
+| dennis.rodman@polito.it  | password | Dennis  |
+| luc.longley@polito.it  | password | Luc  |
+| ron.harper@polito.it  | password | Ron  |
